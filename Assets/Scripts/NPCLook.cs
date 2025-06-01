@@ -20,10 +20,17 @@ public class NPCLook : MonoBehaviour
     private bool lerpingBack = false;
     private float lerpCounter = 0f;
 
+    // used with player interaction 
+    private bool looking;
+    private NPCDialogueManager dialogueManager;
+    private Interactable interactable;
+
     // Start is called before the first frame update
     void Start()
     {
         initialRot = NPCHead.rotation;
+        dialogueManager = transform.parent.GetComponent<NPCDialogueManager>();
+        interactable = transform.parent.GetComponent<Interactable>();
     }
 
     // Update is called once per frame
@@ -62,6 +69,22 @@ public class NPCLook : MonoBehaviour
 
     }
 
+    public void HoverOver()
+    {
+        if (looking)
+        {
+            DialogueDisplay.Instance().ActivateTalkPopup();
+        }
+    }
+
+    public void Interact()
+    {
+        if (looking)
+        {
+            dialogueManager.StartConversation();
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
@@ -69,6 +92,7 @@ public class NPCLook : MonoBehaviour
             lerpingBack = false;
             lerpCounter = 0f;
             lerpingThere = true;
+            looking = true;
         }
     }
 
@@ -80,6 +104,7 @@ public class NPCLook : MonoBehaviour
             lerpCounter = 0f;
             savedFinalRot = finalRot;
             lerpingBack = true;
+            looking = false;
         }
     }
 }

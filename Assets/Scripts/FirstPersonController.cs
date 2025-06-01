@@ -17,7 +17,6 @@ public class FirstPersonController : MonoBehaviour
     [Header("Input Actions")]
     [SerializeField] private InputActionAsset PlayerControls;
 
-    private bool isMoving;
     private Vector3 currentMovement = Vector3.zero;
     private CharacterController characterController;
     private float verticalRotation;
@@ -29,6 +28,8 @@ public class FirstPersonController : MonoBehaviour
     private Vector2 lookInput;
 
     private PlayerInteraction interact;
+
+    private bool movementLocked = false;
 
     private void Awake()
     {
@@ -83,8 +84,6 @@ public class FirstPersonController : MonoBehaviour
         currentMovement.z = horizontalMovement.z;
 
         characterController.Move(currentMovement * Time.deltaTime);
-
-        isMoving = moveInput.y != 0 || moveInput.x != 0;
     }
 
     void HandleRotation()

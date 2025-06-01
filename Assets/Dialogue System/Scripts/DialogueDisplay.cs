@@ -37,6 +37,8 @@ public class DialogueDisplay : MonoBehaviour
 
     public UnityEvent OnDialogueStart;
     public UnityEvent OnDialogueFinish;
+    private FirstPersonController firstPersonController;
+    private PlayerInteraction playerInteraction;
 
     private static DialogueDisplay instance;
 
@@ -47,12 +49,24 @@ public class DialogueDisplay : MonoBehaviour
     float xTracker = 0f;
     float shiftDistance = 5f;
 
+
+    [SerializeField]
+    private GameObject talkPopup;
+    [SerializeField]
+    private GameObject sitPopup;
+    [SerializeField]
+    private GameObject standPopup;
+    [SerializeField]
+    private GameObject dialogueBox;
+
     private void Awake()
     {
         // setting up singleton
         if (instance != null && instance != this)
             Destroy(this);
         instance = this;
+        firstPersonController = GameObject.FindWithTag("Player").GetComponent<FirstPersonController>();
+        playerInteraction = GameObject.FindWithTag("Player").GetComponent<PlayerInteraction>();
     }
 
     public static DialogueDisplay Instance()
@@ -67,7 +81,7 @@ public class DialogueDisplay : MonoBehaviour
         lineIndex = 0;
         currentConvo = null;
 
-        GetComponent<Canvas>().enabled = false;
+        dialogueBox.SetActive(false);
         dialogueText.gameObject.SetActive(false);
     }
 
@@ -76,7 +90,7 @@ public class DialogueDisplay : MonoBehaviour
     {
         if (active)
         {
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0))
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.E))
             {
                 if (typing)
                 {
@@ -105,10 +119,10 @@ public class DialogueDisplay : MonoBehaviour
                 TMP_CharacterInfo completedChar = dialogueText.textInfo.characterInfo[i];
 
                 int completedCharIndex = completedChar.vertexIndex;
-                colors[completedCharIndex] = Color.black;
-                colors[completedCharIndex + 1] = Color.black;
-                colors[completedCharIndex + 2] = Color.black;
-                colors[completedCharIndex + 3] = Color.black;
+                colors[completedCharIndex] = Color.white;
+                colors[completedCharIndex + 1] = Color.white;
+                colors[completedCharIndex + 2] = Color.white;
+                colors[completedCharIndex + 3] = Color.white;
             }
 
             // lerp in current character
@@ -127,14 +141,15 @@ public class DialogueDisplay : MonoBehaviour
                 vertices[index + 3] += offset;
 
                 // lerp transparent -> black
-                colors[index] = Color.Lerp(Color.black, Color.clear, lerpProgress);
-                colors[index + 1] = Color.Lerp(Color.black, Color.clear, lerpProgress);
-                colors[index + 2] = Color.Lerp(Color.black, Color.clear, lerpProgress);
-                colors[index + 3] = Color.Lerp(Color.black, Color.clear, lerpProgress);
+                colors[index] = Color.Lerp(Color.white, Color.clear, lerpProgress);
+                colors[index + 1] = Color.Lerp(Color.white, Color.clear, lerpProgress);
+                colors[index + 2] = Color.Lerp(Color.white, Color.clear, lerpProgress);
+                colors[index + 3] = Color.Lerp(Color.white, Color.clear, lerpProgress);
 
                 if (xTracker <= 0)
                 {
                     NextCharacter();
+
                     if (characterCount % 2 == 0)
                         AudioManager.Instance().PlaySound(currentConvo.GetVoiceSoundName());
                 }
@@ -148,6 +163,34 @@ public class DialogueDisplay : MonoBehaviour
         }
     }
 
+    public void ActivateTalkPopup()
+    {
+        talkPopup.SetActive(true);
+        sitPopup.SetActive(false);
+        standPopup.SetActive(false);
+    }
+
+    public void ActivateSitPopup()
+    {
+        talkPopup.SetActive(false);
+        sitPopup.SetActive(true);
+        standPopup.SetActive(false);
+    }
+
+    public void ActivateStandPopup()
+    {
+        talkPopup.SetActive(false);
+        sitPopup.SetActive(false);
+        standPopup.SetActive(true);
+    }
+
+    public void ClosePopups()
+    {
+        talkPopup.SetActive(false);
+        sitPopup.SetActive(false);
+        standPopup.SetActive(false);
+    }
+
     // called by an NPCDialogueManager to display a conversation.
     // opens the dialogue box and begins displaying text
     public void ActivateDisplay(DialogueConversation convo)
@@ -155,12 +198,17 @@ public class DialogueDisplay : MonoBehaviour
         if (convo == null)
             throw new Exception("Activated dialogue display for nonexistant conversation");
 
+        firstPersonController.enabled = false;
+        playerInteraction.enabled = false;
         currentConvo = convo;
         nameText.text = convo.GetCharacterName();
         lineIndex = 0;
 
         AudioManager.Instance().PlaySound(dialogueBoxOpenSound);
-        GetComponent<Canvas>().enabled = true;
+        talkPopup.SetActive(false);
+        sitPopup.SetActive(false);
+        standPopup.SetActive(false);
+        dialogueBox.SetActive(true);
         GetComponent<Animator>().SetBool("activate", true);
         OnDialogueStart.Invoke();
         StartCoroutine(BeginText());
@@ -200,6 +248,7 @@ public class DialogueDisplay : MonoBehaviour
 
     private void CloseDisplay()
     {
+        firstPersonController.enabled = true;
         StartCoroutine(DelayedClose());
         GetComponent<Animator>().SetBool("activate", false);
        
@@ -211,7 +260,8 @@ public class DialogueDisplay : MonoBehaviour
     private IEnumerator DelayedClose()
     {
         yield return new WaitForSeconds(closeAnimationLength);
-        GetComponent<Canvas>().enabled = false;
+        dialogueBox.SetActive(false);
+        playerInteraction.enabled = true;
         OnDialogueFinish.Invoke();
     }
 }

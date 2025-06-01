@@ -152,6 +152,9 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySound(string soundName)
     {
+        // TEMP
+        return;
+
         AudioSource selectedSource = GetFreeAudioSource();
 
         Sound currentSound = sounds.Find(x => x.name == soundName);

@@ -1,0 +1,9 @@
+Quest Requirements;Item Requirements;Conversation ID;Dialogue;Repeat Requirements;Triggers
+~;~;#brother1;Hello there! Are you my brother?;~;#are_you_my_brother
+~;~;#brother1;I've been looking for him for so long . . . you know, I think you must be him.;~;~
+~;~;#brother1;Oh brother, I missed you!;~;~
+~;~;#brother2;Brother. I need you to fell a tree for me. It's most important.;#tree_chopped;~
+~;~;#brother2 ;Come see me when you have some timber to show your big bro!;~;~
+#tree_chopped;~;#brother3;Aha! I knew I could trust my brother to bring me some good timber.;~;#good_brother
+~;~;#brother3;Thank you, dear brother.;~;~
+~;~;#brother_repeat;What a lovely day it is have some kindling and a brotherly connection!;~;~

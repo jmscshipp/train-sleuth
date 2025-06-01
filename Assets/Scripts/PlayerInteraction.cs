@@ -17,7 +17,7 @@ public class PlayerInteraction : MonoBehaviour
         // reset selected object
         if (selectedObject != null)
         {
-            selectedObject.gameObject.GetComponent<Outline>().enabled = false;
+            selectedObject.GetComponent<Interactable>().StopHover();
             selectedObject = null;
         }
 
@@ -26,30 +26,21 @@ public class PlayerInteraction : MonoBehaviour
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.TransformDirection(Vector3.forward), out hit, maxSelectionDistance, selectionLayerMask))
         {
             selectedObject = hit.transform;
+            HoverOver();
         }
         else
         {
+            if (selectedObject != null)
+                selectedObject.GetComponent<Interactable>().StopHover();
             selectedObject = null;
         }
-
-        UpdateSelectionGraphics();
     }
 
-    private void UpdateSelectionGraphics()
+    public void HoverOver()
     {
-        if (selectedObject == null)
+        if (selectedObject != null)
         {
-            return;
-        }
-
-        if (selectedObject.GetComponent<Outline>() != null)
-        {
-            selectedObject.gameObject.GetComponent<Outline>().enabled = true;
-        }
-        else
-        {
-            Outline outline = selectedObject.gameObject.AddComponent<Outline>();
-            outline.enabled = true;
+            selectedObject.GetComponent<Interactable>().HoverOver();
         }
     }
 

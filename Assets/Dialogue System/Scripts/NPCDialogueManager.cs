@@ -26,6 +26,8 @@ public class NPCDialogueManager : MonoBehaviour
     private DialogueConversation[] conversations;
     DialogueConversation currentConvo;
 
+    bool conversating = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -51,6 +53,11 @@ public class NPCDialogueManager : MonoBehaviour
     // what requirements are met, what conversations have already been read, etc
     public void StartConversation()
     {
+        if (conversating)
+        {
+            return;
+        }
+        conversating = true;
         // defaults to final entry
         currentConvo = conversations[conversations.Length - 1];
 
@@ -76,6 +83,7 @@ public class NPCDialogueManager : MonoBehaviour
     // triggered by dialogue display event
     private void ConversationCompleted()
     {
+        conversating = false;
         // update quest list with triggers
         string[] triggers = currentConvo.GetCompletionTriggers();
         for (int i = 0; i < triggers.Length; i++)
