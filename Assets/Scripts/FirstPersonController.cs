@@ -53,13 +53,20 @@ public class FirstPersonController : MonoBehaviour
 
     private void OnEnable()
     {
+        GetComponent<CapsuleCollider>().enabled = true;
         moveAction.Enable();
         lookAction.Enable();
         interactAction.Enable();
     }
 
+    public void ResetLook()
+    {
+        verticalRotation = 0f;
+    }
+
     private void OnDisable()
     {
+        GetComponent<CapsuleCollider>().enabled = false;
         moveAction.Disable();
         lookAction.Disable();
         interactAction.Disable();
@@ -93,6 +100,7 @@ public class FirstPersonController : MonoBehaviour
 
         verticalRotation -= lookInput.y * mouseSensitivity;
         verticalRotation = Mathf.Clamp(verticalRotation, -upDownRange, upDownRange);
+        Debug.Log(lookInput.y);
         Camera.main.transform.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
     }
 
