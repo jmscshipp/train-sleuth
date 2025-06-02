@@ -1,0 +1,6 @@
+Quest Requirements;Item Requirements;Conversation ID;Dialogue;Repeat Requirements;Triggers
+~;~;#intro;Can't talk, I'm trying to focus! A voice in my head said 'time starts now' and I've been counting. I'm scared but it seems important...;~;~
+~;~;#intro;TIME so far. The grandma over there said I should stay in my seat.;~;~
+~;~;#update;TIME! I like counting. And I like trains but not in the dark.;~;~
+~;~;#update2;Now it's TIME.;~;~
+~;~;#update3;TIME...;~;~

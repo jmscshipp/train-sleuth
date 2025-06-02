@@ -1,0 +1,8 @@
+Quest Requirements;Item Requirements;Conversation ID;Dialogue;Repeat Requirements;Triggers
+~;~;#initialconvo;Sit down already! If you're standing it will end us all. I couldn't convince that asshole in the corner but maybe if everyone else is sitting it will be okay.;~;~
+~;~;#proof;I had a vision, I heard a voice that said every person must be sitting at the top of every minute! Get in a seat, I beg you!;~;#talkedtoinfo
+~;~;#followup;That's right, at the end of every minute everyone has to be sitting down!;~;~
+~;~;#followup;It's been hours, maybe if we follow the instructions this will all end, I want it to end!;~;~
+~;~;#followfollowup;If you insist on walking around at least try to convince that stupid man with the glasses to take a seat, he'll end up killing us all!;~;~
+~;~;#followfollowup;This is some sort of test, I just know it.;~;~
+~;~;#pleading;Sit down, it's our only hope!;~;~

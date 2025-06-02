@@ -1,0 +1,19 @@
+Quest Requirements;Item Requirements;Conversation ID;Dialogue;Repeat Requirements;Triggers
+~;~;#intro;Thank god, someone else! What message were you given?;~;~
+~;~;#intro;The third stop... but the train hasn't stopped since I woke up here. Still, this gives me hope.;~;~
+~;~;#intro;Yes, I heard a voice too. It told me 'the first person you look at will die.' I've never heard anything in my head like that before. ;~;~
+~;~;#intro;Don't worry, I'm keeping my eyes shut.;~;~
+#talkedtoinfo;~;#proposal;You believe that lady about sitting? If she's right we're going to have to make that glasses guy take a seat. ;~;#talkingpower #curious #hopeful
+~;~;#proposal;If you get him talking I'll look towards his voice and we can end this with force. ;~;~
+~;~;#proposal;Either nothing will happen or something will, then we'd have died anyway because he won't sit!;~;~
+~;~;#proposal;It's up to you.;~;~
+~;~;#curious;I'm not sure if we can trust these messages we've heard, but there's nothing else to go off of.;~;~
+~;~;#curious;My memory is a hazy mess before waking up here, and I've overheard the others talking, no one is sure what's happening.;~;~
+#talkedtoinfo;~;#killerrepeat;If you talk to the guy with glasses and get him to say something, I'll look his way to see what happens.;#deadguy;~
+~;~;#killerrepeat;If the voice is telling the truth, I don't think it'll end well for us if he's standing.;~;~
+;;#hopeful;I'll wait for the third stop in hopes your message will lead us somewhere.;#talkedtoinfo;~
+#deadguy;~;#grief;HOLY SHIT. FUCK, he's gone. I can't believe it, I just have to not think about it right now. ;~;~
+~;~;#grief;Now we just have to wait for the right stop. This proves that the messages are true!;~;~
+~;~;#grief;I'm not sure what'll happen if I look at someone again, just tell me when it's the third stop and I'll follow you!;~;~
+~;~;#grief;Whatever's happening, we have to get out of here.;~;~
+~;~;#success;I'll follow you out when you go, don't worry about me.;~;~

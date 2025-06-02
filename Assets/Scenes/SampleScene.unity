@@ -11143,8 +11143,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterName: 
-  dialogueCSV: {fileID: 4900000, guid: a0ba1139021c6004f9be96b87d5978a8, type: 3}
-  talkSpeed: 70
+  dialogueCSV: {fileID: 4900000, guid: 85a5cfd120d33dd46ac8baa61a952504, type: 3}
+  talkSpeed: 100
   voiceSoundName: info
   conversations: []
 --- !u!114 &6862504198435686908

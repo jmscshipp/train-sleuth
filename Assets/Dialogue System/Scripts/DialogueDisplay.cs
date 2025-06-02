@@ -95,7 +95,7 @@ public class DialogueDisplay : MonoBehaviour
                     characterCount = dialogueText.textInfo.characterCount - 1;
 
                     // make sure to play noise when skipping to end of dialogue
-                    if ((characterCount + 1) % 2 != 0)
+                    if ((characterCount + 1) % 4 != 0)
                         AudioManager.Instance().PlaySound(currentConvo.GetVoiceSoundName());
                 }
                 else
