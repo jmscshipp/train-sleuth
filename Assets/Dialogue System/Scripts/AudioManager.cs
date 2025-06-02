@@ -66,22 +66,18 @@ public class AudioManager : MonoBehaviour
         if (instance != null && instance != this)
             Destroy(this);
         instance = this;
-    }
 
-    private void Start()
-    {
         musicSource = gameObject.AddComponent<AudioSource>();
+        sources = new List<AudioSource>();
+        OnFadeCompletion = new UnityEvent();
+        loops = new List<Loop>();
+         
         musicSource.volume = 0.0f;
         musicSource.loop = true;
 
         musicFadingIn = false;
         musicFadingout = false;
-        sources = new List<AudioSource>();
-        OnFadeCompletion = new UnityEvent();
-
-        loops = new List<Loop>();
     }
-
     public static AudioManager Instance()
     {
         return instance;
@@ -98,7 +94,7 @@ public class AudioManager : MonoBehaviour
         }
         else if (musicFadingout)
         {
-            musicSource.volume -= Time.deltaTime;
+            musicSource.volume -= Time.deltaTime / 4f;
             if (musicSource.volume <= 0.0f)
             {
                 musicSource.clip = null;
@@ -152,9 +148,6 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySound(string soundName)
     {
-        // TEMP
-        return;
-
         AudioSource selectedSource = GetFreeAudioSource();
 
         Sound currentSound = sounds.Find(x => x.name == soundName);

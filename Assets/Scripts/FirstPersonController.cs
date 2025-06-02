@@ -105,7 +105,7 @@ public class FirstPersonController : MonoBehaviour
 
         verticalRotation -= lookInput.y * mouseSensitivity;
         verticalRotation = Mathf.Clamp(verticalRotation, -upDownRange, upDownRange);
-        Debug.Log(lookInput.y);
+
         Camera.main.transform.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
     }
 

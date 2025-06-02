@@ -4259,8 +4259,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5b903744de2c0b4592ab3c4be1362ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds: []
-  music: []
+  sounds:
+  - name: kachunk
+    clip: {fileID: 8300000, guid: 081f53c629df848428fbbeb0122448fd, type: 3}
+    volumeVariationLow: 0.1
+    volumeVariationHigh: 0.1
+    baseVolume: 1
+    pitchVariationLow: 0.1
+    pitchVariationHigh: 0.1
+    basePitch: 1
+  - name: open_door
+    clip: {fileID: 8300000, guid: 6bef948b5b176fb4dbb8df47fc8ff454, type: 3}
+    volumeVariationLow: 0
+    volumeVariationHigh: 0
+    baseVolume: 1
+    pitchVariationLow: 0
+    pitchVariationHigh: 0
+    basePitch: 1
+  - name: standing
+    clip: {fileID: 8300000, guid: b7c4bebb2bd1d1a4c939cc96bb8c64d2, type: 3}
+    volumeVariationLow: 0
+    volumeVariationHigh: 0
+    baseVolume: 0.2
+    pitchVariationLow: 0.1
+    pitchVariationHigh: 0.1
+    basePitch: 1.1
+  - name: timer
+    clip: {fileID: 8300000, guid: db8a93e0a76bf1447973d67d79029ce6, type: 3}
+    volumeVariationLow: 0
+    volumeVariationHigh: 0
+    baseVolume: 0.2
+    pitchVariationLow: 0.1
+    pitchVariationHigh: 0.2
+    basePitch: 1.7
+  - name: killer
+    clip: {fileID: 8300000, guid: ee698d69187f3594b84c524be8eb2af9, type: 3}
+    volumeVariationLow: 0
+    volumeVariationHigh: 0
+    baseVolume: 0.2
+    pitchVariationLow: 0.1
+    pitchVariationHigh: 0.1
+    basePitch: 1.1
+  - name: info
+    clip: {fileID: 8300000, guid: 8c91d03a6ce1e5042990c1e3638dfdfe, type: 3}
+    volumeVariationLow: 0
+    volumeVariationHigh: 0
+    baseVolume: 0.2
+    pitchVariationLow: 0.1
+    pitchVariationHigh: 0.1
+    basePitch: 1.6
+  music:
+  - name: train_ambience
+    clip: {fileID: 8300000, guid: b690130b6c528b34bbe87e6a28d8cb03, type: 3}
+  - name: empty
+    clip: {fileID: 8300000, guid: 4318cd7eb9f23054fa299a37f7adee08, type: 3}
 --- !u!114 &1242547760
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9775,7 +9827,7 @@ MonoBehaviour:
   characterName: 
   dialogueCSV: {fileID: 4900000, guid: a0ba1139021c6004f9be96b87d5978a8, type: 3}
   talkSpeed: 70
-  voiceSoundName: 
+  voiceSoundName: killer
   conversations: []
 --- !u!114 &5459872136802992893
 MonoBehaviour:
@@ -10129,7 +10181,7 @@ MonoBehaviour:
   characterName: 
   dialogueCSV: {fileID: 4900000, guid: a0ba1139021c6004f9be96b87d5978a8, type: 3}
   talkSpeed: 70
-  voiceSoundName: 
+  voiceSoundName: standing
   conversations: []
 --- !u!114 &5838175529114814219
 MonoBehaviour:
@@ -10579,7 +10631,7 @@ MonoBehaviour:
   characterName: 
   dialogueCSV: {fileID: 4900000, guid: a0ba1139021c6004f9be96b87d5978a8, type: 3}
   talkSpeed: 70
-  voiceSoundName: 
+  voiceSoundName: timer
   conversations: []
 --- !u!114 &6367566383280200017
 MonoBehaviour:
@@ -11093,7 +11145,7 @@ MonoBehaviour:
   characterName: 
   dialogueCSV: {fileID: 4900000, guid: a0ba1139021c6004f9be96b87d5978a8, type: 3}
   talkSpeed: 70
-  voiceSoundName: 
+  voiceSoundName: info
   conversations: []
 --- !u!114 &6862504198435686908
 MonoBehaviour:

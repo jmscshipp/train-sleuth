@@ -192,7 +192,7 @@ public class DialogueDisplay : MonoBehaviour
         nameText.text = convo.GetCharacterName();
         lineIndex = 0;
 
-        AudioManager.Instance().PlaySound(dialogueBoxOpenSound);
+        //AudioManager.Instance().PlaySound(dialogueBoxOpenSound);
         talkPopup.SetActive(false);
         sitPopup.SetActive(false);
         dialogueBox.SetActive(true);
@@ -241,7 +241,7 @@ public class DialogueDisplay : MonoBehaviour
        
         dialogueText.gameObject.SetActive(false);
         active = false;
-        AudioManager.Instance().PlaySound(dialogueBoxCloseSound);
+        //AudioManager.Instance().PlaySound(dialogueBoxCloseSound);
     }
 
     private IEnumerator DelayedClose()

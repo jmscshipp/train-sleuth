@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TrainTime : MonoBehaviour
 {
+    private float timeBetweenStops = 90f;
+    private int stopIncrement = 1;
     private int minIncrement = 1;
     PlayerInteraction interaction;
 
@@ -26,8 +28,15 @@ public class TrainTime : MonoBehaviour
             else
                 minIncrement++;
         }
+
+        if (Time.timeSinceLevelLoad > timeBetweenStops * stopIncrement)
+        {
+            GetComponent<TrainTraveling>().Stop();
+            stopIncrement++;
+        }
     }
 
+    // for use by timer NPC
     public static string GetTrainTime()
     {
         int mins = (int)Time.timeSinceLevelLoad % 60;

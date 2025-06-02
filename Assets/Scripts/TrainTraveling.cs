@@ -5,7 +5,7 @@ using UnityEngine;
 public class TrainTraveling : MonoBehaviour
 {
     [SerializeField]
-    private float travelingSpeed = 10f;
+    private float travelingSpeed = 20f;
 
     [SerializeField]
     private GameObject tunnelSegmentPrefab;
@@ -26,7 +26,6 @@ public class TrainTraveling : MonoBehaviour
 
     private bool starting = false;
     private bool stopping = false;
-    private bool stopped = false;
 
     [SerializeField]
     private Animator trainAnimator;
@@ -34,6 +33,7 @@ public class TrainTraveling : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        AudioManager.Instance().PlayMusic("train_ambience");
         frontSegment = Instantiate(tunnelSegmentPrefab, frontSegmentStartPos, Quaternion.identity).transform;
         midSegment = Instantiate(tunnelSegmentPrefab, midSegmentStartPos, Quaternion.identity).transform;
         backSegment = Instantiate(tunnelSegmentPrefab, backSegmentStartPos, Quaternion.identity).transform;
@@ -54,17 +54,15 @@ public class TrainTraveling : MonoBehaviour
             {
                 StartCoroutine(OpenDoors());
                 travelingSpeed = 0;
-                stopped = true;
                 stopping = false;
             }
         }
         else if (starting)
         {
             travelingSpeed += Time.deltaTime * 2f;
-            if (travelingSpeed >= 10f)
+            if (travelingSpeed >= 20f)
             {
-                travelingSpeed = 10f;
-                stopped = false;
+                travelingSpeed = 20f;
                 starting = false;
             }
         }
@@ -96,17 +94,19 @@ public class TrainTraveling : MonoBehaviour
     IEnumerator OpenDoors()
     {
         trainAnimator.SetBool("openDoors", true);
+        AudioManager.Instance().PlaySound("open_door");
         yield return new WaitForSeconds(10f);
+        AudioManager.Instance().PlaySound("open_door");
         trainAnimator.SetBool("openDoors", false);
         Continue();
     }
 
     IEnumerator ScreenShake()
     {
-        if (stopped)
+        if (stopping || starting)
             yield return 0;
 
-        // SOUND EFFECT HERE
+        AudioManager.Instance().PlaySound("kachunk");
         Vector3 camPos = Camera.main.transform.localPosition;
         for (int i = 0; i < 5; i++)
         {
@@ -119,10 +119,12 @@ public class TrainTraveling : MonoBehaviour
     public void Stop()
     {
         stopping = true;
+        AudioManager.Instance().PlayMusic("empty");
     }
 
     public void Continue()
     {
         starting = true;
+        AudioManager.Instance().PlayMusic("train_ambience");
     }
 }
