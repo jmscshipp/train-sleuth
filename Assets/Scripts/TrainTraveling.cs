@@ -24,6 +24,13 @@ public class TrainTraveling : MonoBehaviour
     private Transform backSegment;
     private int segmentCounter = 0;
 
+    private bool starting = false;
+    private bool stopping = false;
+    private bool stopped = false;
+
+    [SerializeField]
+    private Animator trainAnimator;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +42,34 @@ public class TrainTraveling : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (Input.GetKeyDown(KeyCode.T))
+            Stop();
+
+        // starting and stopping
+        if (stopping)
+        {
+            travelingSpeed -= Time.deltaTime * 2f;
+            if (travelingSpeed <= 0)
+            {
+                StartCoroutine(OpenDoors());
+                travelingSpeed = 0;
+                stopped = true;
+                stopping = false;
+            }
+        }
+        else if (starting)
+        {
+            travelingSpeed += Time.deltaTime * 2f;
+            if (travelingSpeed >= 10f)
+            {
+                travelingSpeed = 10f;
+                stopped = false;
+                starting = false;
+            }
+        }
+
+        // moving segments along
         frontSegment.transform.Translate(Vector3.forward * travelingSpeed * Time.deltaTime);
         midSegment.transform.Translate(Vector3.forward * travelingSpeed * Time.deltaTime);
         backSegment.transform.Translate(Vector3.forward * travelingSpeed * Time.deltaTime);
@@ -58,8 +93,19 @@ public class TrainTraveling : MonoBehaviour
         }
     }
 
+    IEnumerator OpenDoors()
+    {
+        trainAnimator.SetBool("openDoors", true);
+        yield return new WaitForSeconds(10f);
+        trainAnimator.SetBool("openDoors", false);
+        Continue();
+    }
+
     IEnumerator ScreenShake()
     {
+        if (stopped)
+            yield return 0;
+
         // SOUND EFFECT HERE
         Vector3 camPos = Camera.main.transform.localPosition;
         for (int i = 0; i < 5; i++)
@@ -68,5 +114,15 @@ public class TrainTraveling : MonoBehaviour
             yield return new WaitForSeconds(0.02f);
             Camera.main.transform.localPosition = camPos;
         }
+    }
+
+    public void Stop()
+    {
+        stopping = true;
+    }
+
+    public void Continue()
+    {
+        starting = true;
     }
 }
