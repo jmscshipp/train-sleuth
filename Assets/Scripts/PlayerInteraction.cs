@@ -12,6 +12,8 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField]
     private float maxSelectionDistance = 5f;
 
+    private bool sitting = false;
+    private SittingSpot spot;
     private void Update()
     {
         // reset selected object
@@ -36,19 +38,42 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
+    public bool IsSitting() => sitting;
+
     public void HoverOver()
     {
+        if (sitting)
+            return;
+
         if (selectedObject != null)
         {
             selectedObject.GetComponent<Interactable>().HoverOver();
         }
     }
 
+    public void AssignSittingSpot(SittingSpot newSpot)
+    {
+        spot = newSpot;
+        sitting = true;
+    }
+
     public void Interact()
     {
-        if (selectedObject != null)
+        if (sitting)
+        {
+            spot.Stand();
+            spot = null;
+            StartCoroutine(WaitToSitAgain());
+        }
+        else if (selectedObject != null)
         {
             selectedObject.GetComponent<Interactable>().Interact();
         }
+    }
+
+    private IEnumerator WaitToSitAgain()
+    {
+        yield return new WaitForSeconds(0.5f);
+        sitting = false;
     }
 }

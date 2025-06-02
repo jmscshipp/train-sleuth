@@ -55,8 +55,6 @@ public class DialogueDisplay : MonoBehaviour
     [SerializeField]
     private GameObject sitPopup;
     [SerializeField]
-    private GameObject standPopup;
-    [SerializeField]
     private GameObject dialogueBox;
 
     private void Awake()
@@ -167,28 +165,18 @@ public class DialogueDisplay : MonoBehaviour
     {
         talkPopup.SetActive(true);
         sitPopup.SetActive(false);
-        standPopup.SetActive(false);
     }
 
     public void ActivateSitPopup()
     {
         talkPopup.SetActive(false);
         sitPopup.SetActive(true);
-        standPopup.SetActive(false);
-    }
-
-    public void ActivateStandPopup()
-    {
-        talkPopup.SetActive(false);
-        sitPopup.SetActive(false);
-        standPopup.SetActive(true);
     }
 
     public void ClosePopups()
     {
         talkPopup.SetActive(false);
         sitPopup.SetActive(false);
-        standPopup.SetActive(false);
     }
 
     // called by an NPCDialogueManager to display a conversation.
@@ -207,7 +195,6 @@ public class DialogueDisplay : MonoBehaviour
         AudioManager.Instance().PlaySound(dialogueBoxOpenSound);
         talkPopup.SetActive(false);
         sitPopup.SetActive(false);
-        standPopup.SetActive(false);
         dialogueBox.SetActive(true);
         GetComponent<Animator>().SetBool("activate", true);
         OnDialogueStart.Invoke();

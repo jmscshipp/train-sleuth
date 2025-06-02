@@ -23,11 +23,6 @@ public class SittingSpot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-            Sit();
-        if (Input.GetKeyDown(KeyCode.G))
-            Stand();
-
         if (lerpingDown)
         {
             lerpCounter += Time.deltaTime * 2f;
@@ -56,7 +51,10 @@ public class SittingSpot : MonoBehaviour
 
     public void Sit()
     {
+        DialogueDisplay.Instance().ClosePopups();
         player.GetComponent<FirstPersonController>().enabled = false;
+        player.GetComponent<FirstPersonController>().EnableAction();
+        player.GetComponent<PlayerInteraction>().AssignSittingSpot(this);
         startPos = player.position;
         startRot = player.rotation;
         camStartRot = Camera.main.transform.localRotation;

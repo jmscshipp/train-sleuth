@@ -72,6 +72,11 @@ public class FirstPersonController : MonoBehaviour
         interactAction.Disable();
     }
 
+    public void EnableAction()
+    {
+        interactAction.Enable();
+    }
+
     private void Update()
     {
         HandleMovement();
